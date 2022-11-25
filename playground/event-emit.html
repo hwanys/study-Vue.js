@@ -8,10 +8,13 @@
 </head>
 <body>
     <div id="app">
-        <app-header></app-header>
+        <p>{{ num }}</p>  <!-- addNum 확인 차 적어놓음. -->
+        <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트의 메서드 이름"></app-header> -->
+        <app-header v-on:pass = "logText"></app-header>
+        <app-content v-on:increase = "increaseNumber"></app-content>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     <script>
         var appHeader = {
             template: '<button v-on:click="passEvent">click me</button>',
@@ -21,13 +24,31 @@
                 }
             }
         }
+        var appContent = {
+            template: '<button v-on:click="addNumber">add</button>',
+            methods: {
+                addNumber: function() {
+                    this.$emit('increase'); //increase라는 이벤트 발생
+                }
+            }
+        }
 
-    </script>
-    <script>
         new Vue({
             el: '#app',
             components: {
-                'app-header': appHeader
+                'app-header': appHeader,
+                'app-content': appContent
+            },
+            methods: {
+                logText: function() {
+                    console.log('hi');
+                },
+                increaseNumber: function() {
+                    this.num = this.num + 1;
+                }
+            },
+            data: {
+                num: 10
             }
         });
     </script>
