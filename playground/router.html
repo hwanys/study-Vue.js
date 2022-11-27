@@ -26,7 +26,7 @@
             template: '<div>main</div>'
         }
     
-
+        // 라우터 인스턴스 생성
         var router = new VueRouter({
             // 페이지의 라우팅 정보
             routes: [
@@ -43,7 +43,7 @@
                 }
             ]
         });
-
+        // 인스턴스에 라우터 인스턴스를 등록
         new Vue({
             el: '#app',
             router: router  // 뒤의 router는 위에서 변수로 지정한 이름(router).
