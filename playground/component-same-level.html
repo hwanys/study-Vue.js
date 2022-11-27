@@ -8,20 +8,21 @@
 </head>
 <body>
     <div id="app">
-        <app-header></app-header>
-        <app-content></app-content>
+        <app-header v-bind:propsdata="num"></app-header>       <!--prop로 하위 컴포넌트에 값을 보내기-->
+        <app-content v-on:pass="deliverNum"></app-content>   <!-- 하위 컴포넌트 이벤트를 받기-->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         var appHeader = {
-            template: '<div>header</div>'
+            template: '<div>header</div>',
+            props: ['propsdata']
         }
         var appContent = {
             template: '<div>content<button v-on:click="passNum">pass</button></div>',
             methods: {
                 passNum: function() {
-                    this.$emit('pass',10)   //pass 이벤트
+                    this.$emit('pass',10);   //pass 이벤트
                 }
             }
 
@@ -35,6 +36,11 @@
             },
             data: {
                 num: 0
+            },
+            methods: {
+                deliverNum: function(value) {
+                    this.num = value;
+                }
             }
         })
     </script>
